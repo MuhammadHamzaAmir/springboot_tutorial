@@ -61,13 +61,17 @@ public class StudentService {
             if ((name != null) && (name.length()>0) && (!(Objects.equals(student.get().getName(),name)))){
                     student.get().setName(name);
             }
+            else {
+                throw new Exception("Name already exists at ID "+studentID);
+            }
             Optional<Student> studentEmail = studentRepository.findStudentByEmail(email);
             if (studentEmail.isPresent()){
                 throw new Exception("Email already taken");
             }
             else {
+
                 if ((email != null) && (email.length() > 0) && (!(Objects.equals(student.get().getEmail(), email)))) {
-                    student.get().setName(name);
+                    student.get().setEmail(email);
                 }
             }
         }
