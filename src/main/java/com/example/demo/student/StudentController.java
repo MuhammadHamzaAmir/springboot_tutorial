@@ -1,9 +1,8 @@
 package com.example.demo.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -26,6 +25,24 @@ public class StudentController {
     @GetMapping
     protected List<Student> getStudents(){
         return studentService.getStudents();
+    }
+
+    @PostMapping
+    protected void registerNewStudent(@RequestBody Student student) throws Exception {
+        studentService.addNewStudent(student);
+    }
+
+    @DeleteMapping(path = "{studentID}")
+    protected void deleteStudent(@PathVariable("studentID") long studentID) throws Exception {
+        studentService.deleteStudent(studentID);
+    }
+
+    @PutMapping(path = "{studentID}")
+    protected void updateStudent(@PathVariable("studentID") long studentID,
+                                 @RequestParam(required = false) String name,
+                                 @RequestParam(required = false) String email) throws Exception {
+        studentService.updateStudent(studentID,name,email);
+
     }
 
 }
